@@ -8,6 +8,19 @@ router.get('/transactions', async function (req, res) {
     res.send(transactions)
 })
 
+router.get('/total',async function (req, res) {
+    const totalAaoutByCategoty = await Transaction.aggregate([
+        {
+            $group:
+            {
+                _id: "$category",
+                total: { $sum: "$amount" }
+            }
+        }])
+    res.send(totalAaoutByCategoty)
+
+})
+
 router.get('/categories', async function (req, res) {
     const categories = await Category.find({})
     res.send(categories)

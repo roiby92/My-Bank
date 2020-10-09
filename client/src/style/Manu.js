@@ -37,7 +37,7 @@ const styles = theme => ({
     }
 });
 
-class SimpleList extends Component {
+class Manu extends Component {
 
     handleDrawer = () => {
         this.props.handleDrawer()
@@ -78,7 +78,7 @@ class SimpleList extends Component {
                         <ListItemText primary="Operetions" />
                     </ListItem>
                     </Link>
-                    <Link><ListItem onClick={this.handleDrawer} button>
+                    <Link to="/breakdown"><ListItem onClick={this.handleDrawer} button>
                         <ListItemIcon>
                             <InboxIcon />
                         </ListItemIcon>
@@ -91,9 +91,9 @@ class SimpleList extends Component {
     }
 }
 
-SimpleList.propTypes = {
+Manu.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(SimpleList);
+export default withStyles(styles, { withTheme: true })(Manu);

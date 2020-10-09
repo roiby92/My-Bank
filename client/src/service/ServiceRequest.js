@@ -12,7 +12,7 @@ class ServiceRequest {
     }
 
     postTranscation = async (transaction) => {
-        const newTransaction = await axios.post('http://localhost:3100/transaction',transaction)
+        const newTransaction = await axios.post('http://localhost:3100/transaction', transaction)
         return newTransaction.data
     }
     deleteTransaction = async transcationId => {
@@ -23,6 +23,10 @@ class ServiceRequest {
         else {
             return false
         }
+    }
+    getTotalAmountByCategoty = async () => {
+        const totalAaoutByCategoty = await axios.get('http://localhost:3100/total')
+        return totalAaoutByCategoty.data
     }
 
 }
