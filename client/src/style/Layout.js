@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from './AppBar'
 import Manu from './Manu'
+import BottomAppBar from './BottomAppBar'
 
 const styles = theme => ({
     root: {
@@ -35,7 +36,7 @@ class Layout extends Component {
     };
 
     render() {
-        const { classes } = this.props
+        const { classes,balance } = this.props
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -45,6 +46,7 @@ class Layout extends Component {
                     <div className={classes.toolbar} />
                     {this.props.children}
                 </main>
+                <BottomAppBar balance={balance}/>
             </div>
         );
     }

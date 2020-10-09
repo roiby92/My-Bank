@@ -5,7 +5,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import { Link } from 'react-router-dom'
+
 const styles = theme => ({
     rooti: {
         ...theme.mixins.gutters(),
@@ -25,10 +31,19 @@ const styles = theme => ({
         width: 200
     },
     grid: {
-        width: '60%',
+        width: '70%',
         height: '30%',
-        marginLeft: '25%'
-    }
+        marginLeft: '15%'
+    },
+    formControl: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        margin: theme.spacing.unit,
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing.unit * 2,
+    },
 });
 
 class Operations extends Component {
@@ -51,30 +66,37 @@ class Operations extends Component {
         const transcation = { amount: 0, vendor: this.state.vendor, category: this.state.category }
         const amount = parseInt(this.state.amount)
         transcation.amount = amount
-        console.log(transcation.amount);
-        this.props.setNewTransaction(transcation)
-        this.setState({
-            amount: '',
-            vendor: "",
-            category: ""
-        })
+        if (transcation.amount && transcation.category && transcation.vendor) {
+            this.props.setNewTransaction(transcation)
+            this.setState({
+                amount: '',
+                vendor: "",
+                category: ""
+            }, () => { return true })
+        }
+        else {
+            return false
+        }
     }
 
     withdraw = () => {
         const transcation = { amount: 0, vendor: this.state.vendor, category: this.state.category }
         const negativAmount = parseInt(this.state.amount) - (parseInt(this.state.amount) * 2)
         transcation.amount = negativAmount
-        console.log(transcation.amount);
-        this.props.setNewTransaction(transcation)
-        this.setState({
-            amount: '',
-            vendor: "",
-            category: ""
-        })
+        if (transcation.amount && transcation.category && transcation.vendor) {
+            this.props.setNewTransaction(transcation)
+            this.setState({
+                amount: '',
+                vendor: "",
+                category: ""
+            }, () => { return true })
+        } else {
+            return false
+        }
     }
 
     render() {
-        let state = this.state
+        const state = this.state
         const { classes, categories } = this.props
         return (
             <Grid container className={classes.grid}>
@@ -105,26 +127,30 @@ class Operations extends Component {
                         className={classes.textField}
                         margin="normal" />
                     <Divider />
-                    <Select
-                        multiple
-                        name="category"
-                        placeholder="category"
-                        value={categories}
-                        onChange={this.setTranscation}
-                        id="standard-textarea"
-                        className={classes.textField}
-                        margin="normal">
-                    
-                    </Select>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="age-helper">Category</InputLabel>
+                        <Select
+                            value={state.category}
+                            onChange={this.setTranscation}
+                            input={<Input name="category" id="age-helper" />}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {categories.map(c => <MenuItem value={c}>{c}</MenuItem>)}
+                        </Select>
+                    </FormControl>
                     <Divider />
-                    <Button onClick={this.deposit}
+                    <Link to="/transactions"><Button onClick={this.deposit}
                         variant="contained"
                         className={classes.depositButton}
                         color="primary">Deposit</Button>
-                    <Button onClick={this.withdraw}
+                    </Link>
+                    <Link to="/transactions"><Button onClick={this.withdraw}
                         variant="contained"
                         className={classes.withdraowButton}
                         color="primary">Withdraw</Button>
+                    </Link>
                 </Paper>
             </Grid>
         );

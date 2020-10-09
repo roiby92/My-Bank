@@ -23,8 +23,7 @@ const styles = theme => ({
 class Transactions extends Component {
 
     render() {
-        const { classes } = this.props;
-        const transactions = this.props.transactions
+        const { classes, transactions } = this.props;
         return (
             <Paper className={classes.transactions}>
                 <Table className={classes.table}>

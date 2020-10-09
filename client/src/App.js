@@ -4,6 +4,7 @@ import ServiceRequest from './service/ServiceRequest'
 import Home from './components/Home'
 import Transactions from './components/Transactions'
 import Operations from './components/Operations'
+import Breakdown from './components/Breakdown'
 import Layout from './style/Layout'
 import './App.css';
 
@@ -12,6 +13,7 @@ class App extends Component {
     super()
     this.ServiceRequest = new ServiceRequest()
     this.categories = []
+    this.TotalAmountByCategoty = []
     this.state = {
       transactions: [],
       balance: 0,
@@ -21,6 +23,8 @@ class App extends Component {
   componentDidMount = async () => {
     let categoriesDB = await this.ServiceRequest.getCategories()
     this.categories = categoriesDB.map(category => category.category)
+    const totalAaoutByCategoty = await this.ServiceRequest.getTotalAmountByCategoty()
+    this.TotalAmountByCategoty= totalAaoutByCategoty
     const transactions = await this.ServiceRequest.getTranscations()
     this.setState({
       transactions: transactions
@@ -39,6 +43,8 @@ class App extends Component {
     const transactionDb = await this.ServiceRequest.postTranscation(transcation)
     const transactions = [...this.state.transactions]
     transactions.push(transactionDb)
+    const totalAaoutByCategoty = await this.ServiceRequest.getTotalAmountByCategoty()
+    this.TotalAmountByCategoty= totalAaoutByCategoty
     this.setState({ transactions: transactions }, () => this.setBalance())
   }
 
@@ -48,33 +54,37 @@ class App extends Component {
       const transactions = [...this.state.transactions]
       let index = transactions.findIndex(t => t._id === transactionId)
       transactions.splice(index, 1)
+      const totalAaoutByCategoty = await this.ServiceRequest.getTotalAmountByCategoty()
+      this.TotalAmountByCategoty= totalAaoutByCategoty
       this.setState({ transactions: transactions }, () => this.setBalance())
     }
     return false;
   }
-
   render() {
-    console.log(this.state.balance);
     return (
       <Fragment>
         <Router>
-          <Layout>
-            {/* <Link to="/">Home</Link>
-            <Link to="/transactions">transcations</Link>
-            <Link to="/operations">Operations</Link> */}
+          <Layout balance={this.state.balance}>
             <Route path="/" exact render={() => <Home />} />
-            <Route path="/transactions" exact render={
-              () => <Transactions
+            <Route path="/transactions" exact render={() =>
+              <Transactions
                 transactions={this.state.transactions}
-                balance={this.state.balance}
-                updateBalance={this.updateBalance}
-                deleteTransaction={this.deleteTransaction} />} />
-            <Route path="/operations" exact render={
-              () => <Operations setNewTransaction={this.setNewTransaction} categories={this.categories} />} />
+                deleteTransaction={this.deleteTransaction} />}
+            />
+
+            <Route path="/operations" exact render={() =>
+              <Operations
+                setNewTransaction={this.setNewTransaction}
+                categories={this.categories} />}
+            />
+            <Route path="/breakdown" exact render={() =>
+              <Breakdown
+              TotalAmountByCategoty={this.TotalAmountByCategoty}
+              />}
+            />
           </Layout >
         </Router >
       </Fragment >)
-
   }
 }
 
