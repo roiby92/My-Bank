@@ -30,11 +30,6 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 200
     },
-    grid: {
-        width: '70%',
-        height: '30%',
-        marginLeft: '15%'
-    },
     formControl: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -99,8 +94,10 @@ class Operations extends Component {
         const state = this.state
         const { classes, categories } = this.props
         return (
-            <Grid container className={classes.grid}>
-                <Grid item></Grid>
+            <Grid container className={classes.grid} direction="column"
+                justify="center"
+                alignItems="center">
+                
                 <Paper className={classes.rooti} elevation={12}>
                     <Typography variant="h6" component="h1">
                         Withdraw / Deposit

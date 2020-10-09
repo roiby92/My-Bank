@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 
-
 const styles = theme => ({
     text: {
         paddingTop: theme.spacing.unit * 2,
@@ -46,7 +45,7 @@ function BottomAppBar(props) {
             <AppBar position="fixed" color="primary" className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <div>"UserName" </div>
-                 
+
                     <div>
                         <IconButton color="inherit">
                         </IconButton>

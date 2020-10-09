@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
 const drawerWidth = 200;
 const styles = theme => ({
     appBar: {
@@ -41,7 +40,7 @@ class ButtonAppBar extends Component {
     }
 
     render() {
-        const { classes, open  } = this.props;
+        const { classes, open } = this.props;
 
         return (
             <div className={classes.root}>
@@ -56,7 +55,7 @@ class ButtonAppBar extends Component {
                             aria-label="Open drawer"
                             onClick={this.handleDrawer}
                             className={classNames(classes.menuButton, {
-                                [classes.hide]:open,
+                                [classes.hide]: open,
                             })}
                         >
                             <MenuIcon />
@@ -64,6 +63,7 @@ class ButtonAppBar extends Component {
                         <Typography variant="h6" color="inherit" noWrap>
                             The Best Bank
                         </Typography>
+
                     </Toolbar>
                 </AppBar>
             </div>

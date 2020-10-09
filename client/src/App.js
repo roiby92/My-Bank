@@ -4,7 +4,7 @@ import ServiceRequest from './service/ServiceRequest'
 import Home from './components/Home'
 import Transactions from './components/Transactions'
 import Operations from './components/Operations'
-import Breakdown from './components/Breakdown'
+import Breakdown from './components/breakdown'
 import Layout from './style/Layout'
 import './App.css';
 
